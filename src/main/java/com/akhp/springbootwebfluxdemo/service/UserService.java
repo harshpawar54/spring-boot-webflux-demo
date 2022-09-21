@@ -1,13 +1,10 @@
 package com.akhp.springbootwebfluxdemo.service;
 
 import com.akhp.springbootwebfluxdemo.dto.UserDTO;
-import com.akhp.springbootwebfluxdemo.entity.User;
 import com.akhp.springbootwebfluxdemo.repository.UserRepository;
 import com.akhp.springbootwebfluxdemo.request.SignupRequest;
 import com.akhp.springbootwebfluxdemo.util.AppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Range;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -29,19 +26,13 @@ public class UserService {
         return userRepository.findById(id).map(AppUtil::entityToDto);
     }
 
-//    public Flux<UserDTO> getUsersInRange(double min, double max){
-//        return userRepository.findByPriceBetween(Range.closed(min, max));
-//    }
-
     public Mono<UserDTO> saveUser(Mono<UserDTO> userDTOMono){
 
 
         return userDTOMono
                 .flatMap(p ->
                         userDTOMono.map(AppUtil::dtoToEntity)
-                                .doOnNext(e -> {
-                                    e.setPassword(passwordEncoder.encode(e.getPassword()));
-                                }))
+                                .doOnNext(e -> e.setPassword(passwordEncoder.encode(e.getPassword()))))
                 .flatMap(userRepository::insert)
                 .map(AppUtil::entityToDto);
     }

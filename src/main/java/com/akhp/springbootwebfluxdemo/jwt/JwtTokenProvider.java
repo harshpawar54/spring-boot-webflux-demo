@@ -1,11 +1,7 @@
 package com.akhp.springbootwebfluxdemo.jwt;
 
 import com.akhp.springbootwebfluxdemo.dto.JwtResponse;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,12 +12,12 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
-import javax.annotation.PostConstruct;
-import javax.crypto.SecretKey;
 
 import static java.util.stream.Collectors.joining;
 
@@ -64,7 +60,7 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        Claims claims = Jwts.parser().setSigningKey(this.secretKey).parseClaimsJws(token).getBody();
+        Claims claims = Jwts.parserBuilder().setSigningKey(this.secretKey).build().parseClaimsJws(token).getBody();
 
         Object authoritiesClaim = claims.get(AUTHORITIES_KEY);
 
@@ -79,7 +75,7 @@ public class JwtTokenProvider {
     public boolean validateToken(String token) {
         try {
             Jws<Claims> claims = Jwts
-                    .parser().setSigningKey(this.secretKey)
+                    .parserBuilder().setSigningKey(this.secretKey).build()
                     .parseClaimsJws(token);
             //  parseClaimsJws will check expiration date. No need do here.
             log.info("expiration date: {}", claims.getBody().getExpiration());

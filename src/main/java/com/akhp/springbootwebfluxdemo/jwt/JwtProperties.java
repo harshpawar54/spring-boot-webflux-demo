@@ -1,8 +1,6 @@
 package com.akhp.springbootwebfluxdemo.jwt;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "jwt")

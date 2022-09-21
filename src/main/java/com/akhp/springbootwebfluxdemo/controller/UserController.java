@@ -24,11 +24,6 @@ public class UserController {
         return userService.getUser(id);
     }
 
-//    @GetMapping("/user-range")
-//    public Flux<UserDTO> getUserById(@RequestParam("min") int min, @RequestParam("max") int max){
-//        return userService.getUsersInRange(min, max);
-//    }
-
     @PostMapping
     public Mono<UserDTO> saveUser(@RequestBody Mono<UserDTO> userDTOMono){
         return userService.saveUser(userDTOMono);

@@ -21,7 +21,7 @@ public class CustomerHandler /*implements HandlerFunction<ServerResponse>*/ {
     }
 
     public Mono<ServerResponse> getCustomer(ServerRequest serverRequest) {
-        int customerId = Integer.valueOf(serverRequest.pathVariable("id"));
+        int customerId = Integer.parseInt(serverRequest.pathVariable("id"));
         Mono<Customer> customer = customerDao.getCustomerList().filter(c->c.getId() == customerId).next();
         return ServerResponse.ok().body(customer, Customer.class);
     }

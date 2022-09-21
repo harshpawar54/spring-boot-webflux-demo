@@ -1,6 +1,5 @@
 package com.akhp.springbootwebfluxdemo.repository;
 
-import com.akhp.springbootwebfluxdemo.entity.Product;
 import com.akhp.springbootwebfluxdemo.entity.User;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Mono;

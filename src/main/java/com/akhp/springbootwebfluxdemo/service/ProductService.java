@@ -1,7 +1,6 @@
 package com.akhp.springbootwebfluxdemo.service;
 
 import com.akhp.springbootwebfluxdemo.dto.ProductDTO;
-import com.akhp.springbootwebfluxdemo.entity.Product;
 import com.akhp.springbootwebfluxdemo.repository.ProductRepository;
 import com.akhp.springbootwebfluxdemo.util.AppUtil;
 import org.springframework.beans.factory.annotation.Autowired;

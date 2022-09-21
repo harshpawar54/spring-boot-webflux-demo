@@ -34,7 +34,7 @@ public class DataInitializer {
                         Flux.just("user", "admin")
                                 .flatMap(username -> {
                                     List<String> roles = "user".equals(username) ?
-                                            Arrays.asList("ROLE_USER") : Arrays.asList("ROLE_USER", "ROLE_ADMIN");
+                                            List.of("ROLE_USER") : Arrays.asList("ROLE_USER", "ROLE_ADMIN");
 
                                     User user = User.builder()
                                             .roles(roles)
